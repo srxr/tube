@@ -124,7 +124,7 @@ const fileSelected = (_file) => {
     if (!file) return
 
     if (file.size > iMaxFilesize) {
-        setMessage('Your file is very big. We can\'t accept it. Please select more small file.', true)
+        setMessage('Your file is too big. It can\'t be accepted. Please select a smaller file.', true)
         return
     }
 
