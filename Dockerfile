@@ -1,14 +1,29 @@
-# Build
-FROM prologic/go-builder:latest AS build
+# Build tube and mt
+FROM golang:1.15-alpine AS builder
+
+RUN apk add --no-cache -U build-base pkgconf git
+
+WORKDIR /src
+
+COPY . .
+
+RUN set -x; \
+    make setup build; \
+    \
+    make ffmpeg; \
+    make mt
 
 # Runtime
-FROM golang:alpine
+FROM alpine:3.13
 
-RUN apk --no-cache -U add git build-base ffmpeg ffmpeg-dev
+RUN apk --no-cache -U add ffmpeg ffmpeg-dev ca-certificates; \
+    rm -rf /var/cache/apk/*
 
-RUN go get github.com/mutschler/mt
+COPY --from=builder /src/tube /tube
+COPY --from=builder /mt /usr/local/bin/mt
 
-COPY --from=build /src/tube /tube
+WORKDIR /data
 
-ENTRYPOINT ["/tube"]
-CMD [""]
+COPY config.json /config.json
+
+CMD ["/tube", "-c", "/config.json"]
