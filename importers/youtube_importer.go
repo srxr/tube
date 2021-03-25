@@ -1,10 +1,11 @@
 package importers
 
 import (
+	"context"
 	"fmt"
 	"strings"
 
-	"github.com/rylio/ytdl"
+	"github.com/Andreychik32/ytdl"
 )
 
 type YoutubeImporter struct{}
@@ -14,13 +15,15 @@ func (i *YoutubeImporter) GetVideoInfo(url string) (videoInfo VideoInfo, err err
 		url = strings.TrimSpace(strings.SplitN(url, ":", 2)[1])
 	}
 
-	info, err := ytdl.GetVideoInfo(url)
+	ctx := context.Background()
+	info, err := ytdl.GetVideoInfo(ctx, url)
 	if err != nil {
 		err = fmt.Errorf("error retriving youtube video info: %w", err)
 		return
 	}
 
-	videoURL, err := ytdl.DefaultClient.GetDownloadURL(info, info.Formats[0])
+	ctx = context.Background()
+	videoURL, err := ytdl.DefaultClient.GetDownloadURL(ctx, info, info.Formats[0])
 	if err != nil {
 		err = fmt.Errorf("error retriving youtube video  url: %w", err)
 		return
