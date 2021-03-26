@@ -2,6 +2,7 @@ package importers
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/prologic/vimeodl"
@@ -43,7 +44,7 @@ func (i *VimeoImporter) GetVideoInfo(url string) (videoInfo VideoInfo, err error
 
 	videoInfo.ThumbnailURL = vimeodl.PickBestThumbnail(config)
 
-	videoInfo.ID = string(config.Video.Id)
+	videoInfo.ID = strconv.Itoa(config.Video.Id)
 	videoInfo.Title = config.Video.Title
 
 	return

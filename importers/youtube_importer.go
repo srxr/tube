@@ -1,11 +1,10 @@
 package importers
 
 import (
-	"context"
 	"fmt"
 	"strings"
 
-	"github.com/Andreychik32/ytdl"
+	"github.com/kkdai/youtube/v2"
 )
 
 type YoutubeImporter struct{}
@@ -15,26 +14,37 @@ func (i *YoutubeImporter) GetVideoInfo(url string) (videoInfo VideoInfo, err err
 		url = strings.TrimSpace(strings.SplitN(url, ":", 2)[1])
 	}
 
-	ctx := context.Background()
-	info, err := ytdl.GetVideoInfo(ctx, url)
+	client := &youtube.Client{}
+	video, err := client.GetVideo(url)
 	if err != nil {
-		err = fmt.Errorf("error retriving youtube video info: %w", err)
+		err = fmt.Errorf("error: %v", err)
+		return
+	}
+	formats := video.Formats.FindByType("video")
+
+	if len(formats) == 0 {
+		err = fmt.Errorf("error: no found format")
 		return
 	}
 
-	ctx = context.Background()
-	videoURL, err := ytdl.DefaultClient.GetDownloadURL(ctx, info, info.Formats[0])
+	// Get the highest quality video
+	videoURL, err := client.GetStreamURL(video, &formats[0])
 	if err != nil {
-		err = fmt.Errorf("error retriving youtube video  url: %w", err)
+		err = fmt.Errorf("error: %v", err)
 		return
 	}
-	videoInfo.VideoURL = videoURL.String()
 
-	videoInfo.ThumbnailURL = info.GetThumbnailURL(ytdl.ThumbnailQualityHigh).String()
+	if len(video.Thumbnails) == 0 {
+		err = fmt.Errorf("error: no found thumbnails")
+	}
+	// Pick the highest quality thumbnail
+	thumbnail := video.Thumbnails[0].URL
 
-	videoInfo.ID = info.ID
-	videoInfo.Title = info.Title
-	videoInfo.Description = info.Description
+	videoInfo.VideoURL = videoURL
+	videoInfo.ThumbnailURL = thumbnail
+	videoInfo.ID = video.ID
+	videoInfo.Title = video.Title
+	videoInfo.Description = video.Description
 
 	return
 }

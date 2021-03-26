@@ -368,7 +368,7 @@ func (a *App) uploadHandler(w http.ResponseWriter, r *http.Request) {
 // HTTP handler for /import
 func (a *App) importHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		ctx := &struct{}{}
+		ctx := map[string]interface{}{}
 		a.render("import", w, ctx)
 	} else if r.Method == "POST" {
 		r.ParseMultipartForm(1024)
