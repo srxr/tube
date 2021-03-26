@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Andreychik32/ytdl"
+	"github.com/rylio/ytdl"
 )
 
 type YoutubeImporter struct{}
