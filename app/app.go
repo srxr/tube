@@ -188,11 +188,13 @@ func (a *App) indexHandler(w http.ResponseWriter, r *http.Request) {
 		ctx := &struct {
 			Sort     string
 			Quality  string
+			Config   *Config
 			Playing  *media.Video
 			Playlist media.Playlist
 		}{
 			Sort:     sort,
 			Quality:  quality,
+			Config:   a.Config,
 			Playing:  &media.Video{ID: ""},
 			Playlist: a.Library.Playlist(),
 		}

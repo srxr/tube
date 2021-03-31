@@ -29,5 +29,8 @@
             "email": "author@somewhere.example"
         },
         "copyright": "Copyright Text"
+    },
+    "copyright": {
+        "content": "All Content herein Public Domain and User Contributed."
     }
 }

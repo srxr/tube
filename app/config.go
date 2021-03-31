@@ -12,6 +12,7 @@ type Config struct {
 	Thumbnailer *ThumbnailerConfig `json:"thumbnailer"`
 	Transcoder  *TranscoderConfig  `json:"transcoder"`
 	Feed        *FeedConfig        `json:"feed"`
+	Copyright   *Copyright         `json:"copyright"`
 }
 
 // PathConfig settings for media library path.
@@ -56,6 +57,11 @@ type FeedConfig struct {
 	Copyright string `json:"copyright"`
 }
 
+// Copyright text for App.
+type Copyright struct {
+	Content string `json:"content"`
+}
+
 // DefaultConfig returns Config initialized with default values.
 func DefaultConfig() *Config {
 	return &Config{
@@ -81,6 +87,9 @@ func DefaultConfig() *Config {
 		},
 		Feed: &FeedConfig{
 			ExternalURL: "http://localhost:8000",
+		},
+		Copyright: &Copyright{
+			Content: "All Content herein Public Domain and User Contributed.",
 		},
 	}
 }

@@ -1,5 +1,6 @@
 {{define "base"}}
 {{ $playing := .Playing }}
+{{ $config := .Config }}
 <!DOCTYPE html>
 <html lang="en" prefix="og: https://ogp.me/ns#">
   <head>
@@ -37,7 +38,7 @@
   </main>
   <footer>
     <p><a href="https://github.com/prologic/tube">Tube</a> is CopyRight © 2020 <a href="https://github.com/prologic">James Mills / prologic</a>. All Rights Reserved.</p>
-    <p>All Content herein Public Domain and User Contributed.</p>
+    {{if .Config.Copyright.Content}}<p>{{ $config.Copyright.Content }}</p>{{end}}
   </footer>
 </body>
 {{ template "scripts" . }}
