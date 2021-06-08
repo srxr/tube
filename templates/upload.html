@@ -36,6 +36,6 @@
   </div>
 {{end}}
 {{define "scripts"}}
-  <script>window['MAX_UPLOAD_SIZE'] = '{{.MAX_UPLOAD_SIZE}}';</script>
+  <script>window['MAX_UPLOAD_SIZE'] = '{{.Config.Server.MaxUploadSize}}';</script>
   <script type="application/javascript" src="/static/upload.js"></script>
 {{end}}
