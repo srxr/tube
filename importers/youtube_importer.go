@@ -20,7 +20,7 @@ func (i *YoutubeImporter) GetVideoInfo(url string) (videoInfo VideoInfo, err err
 		err = fmt.Errorf("error: %v", err)
 		return
 	}
-	formats := video.Formats.FindByType("video")
+	formats := video.Formats.Type("video")
 
 	if len(formats) == 0 {
 		err = fmt.Errorf("error: no found format")
