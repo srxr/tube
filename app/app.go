@@ -188,11 +188,13 @@ func (a *App) indexHandler(w http.ResponseWriter, r *http.Request) {
 		ctx := &struct {
 			Sort     string
 			Quality  string
+			Config   *Config
 			Playing  *media.Video
 			Playlist media.Playlist
 		}{
 			Sort:     sort,
 			Quality:  quality,
+			Config:   a.Config,
 			Playing:  &media.Video{ID: ""},
 			Playlist: a.Library.Playlist(),
 		}
@@ -204,8 +206,12 @@ func (a *App) indexHandler(w http.ResponseWriter, r *http.Request) {
 // HTTP handler for /upload
 func (a *App) uploadHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		ctx := map[string]interface{}{
-			"MAX_UPLOAD_SIZE": a.Config.Server.MaxUploadSize,
+		ctx := &struct {
+			Config  *Config
+			Playing *media.Video
+		}{
+			Config:  a.Config,
+			Playing: &media.Video{ID: ""},
 		}
 		a.render("upload", w, ctx)
 	} else if r.Method == "POST" {
@@ -566,11 +572,13 @@ func (a *App) pageHandler(w http.ResponseWriter, r *http.Request) {
 		ctx := &struct {
 			Sort     string
 			Quality  string
+			Config   *Config
 			Playing  *media.Video
 			Playlist media.Playlist
 		}{
 			Sort:     sort,
 			Quality:  quality,
+			Config:   a.Config,
 			Playing:  &media.Video{ID: ""},
 			Playlist: a.Library.Playlist(),
 		}
@@ -621,11 +629,13 @@ func (a *App) pageHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := &struct {
 		Sort     string
 		Quality  string
+		Config   *Config
 		Playing  *media.Video
 		Playlist media.Playlist
 	}{
 		Sort:     sort,
 		Quality:  quality,
+		Config:   a.Config,
 		Playing:  playing,
 		Playlist: playlist,
 	}

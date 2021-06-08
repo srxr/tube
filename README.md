@@ -204,6 +204,14 @@ Set `path` to the value of the path where you want to store videos and where
 - Fill these values out as you see fit. If you are familiar with RSS
   these should be straight forward :)
 
+### Content Proprietary Notices Configuration
+
+{
+    "copyright": {
+        "content": "All Content herein Public Domain and User Contributed."
+    }
+}
+
 ## Stargazers over time
 
 [![Stargazers over time](https://starcharts.herokuapp.com/prologic/tube.svg)](https://starcharts.herokuapp.com/prologic/tube)

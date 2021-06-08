@@ -237,10 +237,6 @@ main {
     float:left;
     width:100px;
 }
-#b_transfered {
-    float:right;
-    text-align:right;
-}
 .clear_both {
     clear:both;
 }
