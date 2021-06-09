@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/kkdai/youtube/v2"
+	youtube "github.com/kkdai/youtube/v2"
 )
 
 type YoutubeImporter struct{}
